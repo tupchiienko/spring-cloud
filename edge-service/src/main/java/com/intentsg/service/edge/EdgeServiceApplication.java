@@ -19,18 +19,18 @@ public class EdgeServiceApplication {
     }
 
 
-    @Bean
-    public PreFilter preFilter () {
-        return new PreFilter();
-    }
-
-    @Bean
-    public PostFilter postFilter() {
-        return new PostFilter();
-    }
-
-    @Bean
-    PreFilter2 preFilter2() {
-        return new PreFilter2();
-    }
+//    @Bean
+//    public PreFilter preFilter () {
+//        return new PreFilter();
+//    }
+//
+//    @Bean
+//    public PostFilter postFilter() {
+//        return new PostFilter();
+//    }
+//
+//    @Bean
+//    PreFilter2 preFilter2() {
+//        return new PreFilter2();
+//    }
 }
