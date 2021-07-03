@@ -1,0 +1,60 @@
+version: '3.3'
+
+services:
+
+  discovery-service:
+    container_name: discovery-service
+    build:
+      ./discovery-service
+    restart: on-failure
+    ports:
+      - 8761:8761
+    networks:
+      - webnet
+
+  edge-service:
+    build:
+      ./edge-service
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER_HOSTNAME=discovery-service
+    ports:
+      - 8765:8765
+    networks:
+      - webnet
+    restart: on-failure
+    depends_on:
+      - discovery-service
+      - ticket-service
+      - user-service
+
+  ticket-service:
+    build:
+      ./ticket-service
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER_HOSTNAME=discovery-service
+    ports:
+      - 8084:8084
+    networks:
+      - webnet
+    restart: on-failure
+    depends_on:
+      - discovery-service
+
+  user-service:
+    build:
+      ./user-service
+    environment:
+      - JAVA_OPTS=
+        -DEUREKA_SERVER_HOSTNAME=discovery-service
+    ports:
+      - 8089:8089
+    networks:
+      - webnet
+    restart: on-failure
+    depends_on:
+      - discovery-service
+
+networks:
+  webnet:
